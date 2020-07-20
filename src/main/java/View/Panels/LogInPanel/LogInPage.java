@@ -1,6 +1,7 @@
 package View.Panels.LogInPanel;
 
 
+import Controller.Controller;
 import Util.Constants.Constant;
 
 import javax.swing.*;
@@ -27,23 +28,6 @@ public class LogInPage extends JPanel {
         setBackground(Color.GRAY);
         initLabelsAndFields();
         initButtons();
-    }
-
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
-        String welcome = "Welcome to XO GAME ";
-        g2d.setFont(new Font("TimesRoman", Font.ITALIC, 50));
-        Rectangle2D bounds = g.getFontMetrics().getStringBounds(welcome, g2d);
-        int lengthOfMessage = (int) bounds.getWidth();
-        g2d.drawString(welcome, (Constant.widthOfMainFrame - lengthOfMessage) / 2, 100);
-        String message = "Enjoy your time";
-        g2d.setFont(new Font("TimesRoman", Font.ITALIC, 30));
-        Rectangle2D bounds1 = g.getFontMetrics().getStringBounds(message, g2d);
-        int lengthOfMessage1 = (int) bounds1.getWidth();
-        g2d.drawString(message, (Constant.widthOfMainFrame - lengthOfMessage1) / 2, 150);
     }
 
 
@@ -82,16 +66,16 @@ public class LogInPage extends JPanel {
         signUpBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
+                Controller.getCurrentClient().sendLogInRequest(getUserNameTextField().getText(),
+                        new String(getPasswordField().getPassword()),"SignUp");
             }
         });
 
         logInBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
+                Controller.getCurrentClient().sendLogInRequest(getUserNameTextField().getText(),
+                        new String(getPasswordField().getPassword()),"LogIn");
             }
         });
 
@@ -117,7 +101,7 @@ public class LogInPage extends JPanel {
                 400, passwordLabel.getWidth(), passwordLabel.getHeight());
 
         userNameTextField.setBounds((Constant.widthOfMainFrame - userNameLabel.getWidth() - userNameTextField.getWidth()) / 2 +
-                        userNameLabel.getWidth() + 5,350, userNameTextField.getWidth(), userNameTextField.getHeight());
+                userNameLabel.getWidth() + 5, 350, userNameTextField.getWidth(), userNameTextField.getHeight());
 
         passwordField.setBounds((Constant.widthOfMainFrame - userNameLabel.getWidth() - userNameTextField.getWidth()) / 2 + passwordLabel.getWidth() + 8,
                 400, passwordField.getWidth(), passwordField.getHeight());
@@ -126,6 +110,23 @@ public class LogInPage extends JPanel {
         this.add(userNameTextField);
         this.add(passwordLabel);
         this.add(passwordField);
+    }
+
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        String welcome = "Welcome to XO GAME ";
+        g2d.setFont(new Font("TimesRoman", Font.ITALIC, 50));
+        Rectangle2D bounds = g.getFontMetrics().getStringBounds(welcome, g2d);
+        int lengthOfMessage = (int) bounds.getWidth();
+        g2d.drawString(welcome, (Constant.widthOfMainFrame - lengthOfMessage) / 2, 100);
+        String message = "Enjoy your time";
+        g2d.setFont(new Font("TimesRoman", Font.ITALIC, 30));
+        Rectangle2D bounds1 = g.getFontMetrics().getStringBounds(message, g2d);
+        int lengthOfMessage1 = (int) bounds1.getWidth();
+        g2d.drawString(message, (Constant.widthOfMainFrame - lengthOfMessage1) / 2, 150);
     }
 
 
