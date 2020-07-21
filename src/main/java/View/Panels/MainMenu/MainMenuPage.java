@@ -30,7 +30,7 @@ public class MainMenuPage extends JPanel {
 
 
 
-    private MainMenuPage() {
+    public MainMenuPage() {
         width = Constant.widthOfMainFrame;
         height = Constant.heightOfMainFrame;
         setSize(width, height);
